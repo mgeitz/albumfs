@@ -122,7 +122,7 @@ void writeByte(char *b, int64_t offset) {
     x_offset = floor(offset / 3);
     x_offset = x_offset % afs->root_img->width;
     row_num = floor((offset / 3) / afs->root_img->width);
-    img_num = ceil(row_num / afs->root_img->height);
+    img_num = floor(row_num / afs->root_img->height);
     img_row_num = row_num % afs->root_img->height;
 
     if (afs->images[img_num]->state != modified) { afs->images[img_num]->state = modified; }
@@ -204,7 +204,7 @@ void wipeByte(int64_t offset) {
     x_offset = floor(offset / 3);
     x_offset = x_offset % afs->root_img->width;
     row_num = floor((offset / 3) / afs->root_img->width);
-    img_num = ceil(row_num / afs->root_img->height);
+    img_num = floor(row_num / afs->root_img->height);
     img_row_num = row_num % afs->root_img->height;
 
     if (afs->images[img_num]->state != modified) { afs->images[img_num]->state = modified; }
