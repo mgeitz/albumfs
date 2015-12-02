@@ -421,7 +421,6 @@ void afs_expand() {
         printf("Consumed   : %.2f MB\n", ((afs->consumed / 1000) / 1000));
     }
     else { printf("No new valid images found, filesystem not expanded.\n"); }
-    writeRoot();
 }
 
 
