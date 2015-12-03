@@ -31,8 +31,7 @@ COMMANDS:
               create a new filesystem using valid images in directory of root image provided and mount it.
 
        -expand [drivename]
-              expand  and mount an existing filesystem. The directory containing the root image is scanned for addi‐
-              tional valid PNG images not already included in the filesystem.
+              expand  and mount an existing filesystem. The directory containing the root image is scanned for additional valid PNG images not already included in the filesystem.
 
        -mount [drivename]
               mount an existing filesystem
