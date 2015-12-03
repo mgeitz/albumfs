@@ -16,6 +16,7 @@ install:
 	cp $(NAME) /usr/bin
 	gzip $(MAN)
 	cp $(MAN).gz /usr/share/man/man1
+	rm -f $(MAN).gz
 
 $(NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) $(PROGRAM) $(CFLAGS) $(PKG) $(LIBS) -o $(NAME)
