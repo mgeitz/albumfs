@@ -124,10 +124,8 @@ static int afs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_
 }
 
 
-/* utimens */
-static int afs_utimens(const char *path, const struct timespec ts[2]) {
-    return 0;
-}
+/* Utimens */
+static int afs_utimens(const char *path, const struct timespec ts[2]) { return 0; }
 
 
 /* Destroy */
