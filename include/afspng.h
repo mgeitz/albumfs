@@ -38,7 +38,7 @@ typedef struct file_meta_data afs_file;
 
 struct filesystem_meta_data {
     char name[64];
-    char key[4096];
+    char key[512];
     char img_dir [MAX_PATH];
     char root_dir [MAX_PATH];
     int32_t img_count;

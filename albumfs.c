@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
     char* base;
     int8_t fargc = 6;
     const char *fargv[fargc];
+    char key_input[512];
 
     // Check minimum argc and root
     if ((getuid() == 0) || (geteuid() == 0)) {
@@ -56,20 +57,19 @@ int main(int argc, char *argv[]) {
     // Read root image
     if (!read_png(afs->root_img, afs->img_dir)) { afs_usage(); }
 
-    // Drive name and key
+    // Drive name
     printf("Enter drive name:\n");
     fgets(afs->name, sizeof(afs->name), stdin);
     afs->name[strlen(afs->name) - 1] = '\0';
     strcat(afs->name, ".afs");
+    // Key
     printf("Enter encryption key for %s:\n", afs->name);
-    fgets(afs->key, sizeof(afs->key), stdin);
-    //afs->key[strlen(afs->key) - 1] = '\0';
-    MD5_CTX mdContext;
-    MD5_Init (&mdContext);
-    MD5_Update (&mdContext, afs->key, sizeof(afs->key));
-    MD5_Final ((unsigned char *)afs->key, &mdContext);
+    fgets(key_input, sizeof(key_input), stdin);
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, key_input, strlen(key_input));
+    SHA256_Final((unsigned char *)afs->key, &sha256);
     printf("\e[1;1H\e[2J");
-
     // Check mount
     if (parseArgv(argc, argv, MNT_OPTION)) { readRoot(); }
     // Check format

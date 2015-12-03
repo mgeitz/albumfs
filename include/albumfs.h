@@ -21,6 +21,7 @@
 #include <math.h>
 #include <sys/types.h>
 #include <openssl/md5.h>
+#include <openssl/sha.h>
 
 /* Preprocessor Macros */
 
