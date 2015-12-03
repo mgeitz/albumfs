@@ -14,6 +14,7 @@ Formatting a filesystem wipes each avialable least signifigant bit in the images
 DEPENDENCIES:
 	- fuse
 	- libpng
+	- libpng-dev
 
 
 COMPILE:

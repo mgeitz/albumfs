@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
 
 /* Print help and exit */
 void afs_usage() {
-    fprintf(stderr, "albumfs [-help] [-debug] [-expand <drivename>] [-format <drive_name>] [-mount <drivename>] <path/to/root.png>\n");
+    fprintf(stderr, "albumfs [-help] [-debug] [-expand] [-format] [-mount] <path/to/root.png>\n");
     exit(1);
 }
 
