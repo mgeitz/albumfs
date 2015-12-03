@@ -44,9 +44,9 @@ COMMANDS:
 
 
 EXAMPLES:
-       albumfs -format mydrive images/vacation/image.png
+       albumfs -format images/vacation/image.png
 
-       albumfs -debug -mount mydrive images/vacation/image.png
+       albumfs -debug -mount images/vacation/image.png
 
 
 TODO:
