@@ -472,11 +472,11 @@ void afs_format() {
     }
     closedir(FD);
     if (valid_png_cnt < MINIMUM_PNG) {
-        fprintf(stderr, "Not enough images in %s to create %s. At least %d valid PNG images required.\n", afs->img_dir, afs->name, MINIMUM_PNG);
+        fprintf(stderr, "Not enough images in %s to create %s. At least %d valid storage PNG images required.\n", afs->img_dir, afs->name, MINIMUM_PNG);
         if (valid_png_cnt) {
         fprintf(stderr, "Current valid images:\n");
             for (y = 0; y < valid_png_cnt; y++) {
-                fprintf(stderr, "%s\n", afs->images[y]->filename);
+                fprintf(stderr, "%s\n", dir_images[y]->filename);
             }
         }
         else { fprintf(stderr, "No other valid images found.\n"); }
