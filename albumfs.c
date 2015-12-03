@@ -35,8 +35,8 @@ int main(int argc, char *argv[]) {
 
     // Check minimum argc and root
     if ((getuid() == 0) || (geteuid() == 0)) {
-        fprintf(stderr, "May not run as root, terrible things could happen\n");
-        afs_usage();
+        fprintf(stderr, "Will not run as root!!\n");
+        exit(1);
     }
     if (argc < 3) { afs_usage(); }
 
