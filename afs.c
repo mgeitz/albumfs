@@ -411,6 +411,8 @@ void afs_expand() {
                 }
             }
         }
+        afs_file **files = malloc(sizeof(afs_file*) * afs->file_count);
+        afs->files = files;
     }
     if (added) {
         printf("%d images added to %s\n", added, afs->name);

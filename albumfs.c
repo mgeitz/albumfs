@@ -69,11 +69,7 @@ int main(int argc, char *argv[]) {
     // Check mount
     if (parseArgv(argc, argv, MNT_OPTION)) { readRoot(); }
     // Check format
-    else if (parseArgv(argc, argv, FORMAT_OPTION)) {
-        afs_format();
-        afs_file **files = malloc(sizeof(afs_file*) * afs->file_count);
-        afs->files = files;
-    }
+    else if (parseArgv(argc, argv, FORMAT_OPTION)) { afs_format(); }
     // Check expand
     else if (parseArgv(argc, argv, EXPAND_OPTION)) {
         readRoot();

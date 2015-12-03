@@ -12,9 +12,9 @@ A filesystem requires a name, key, root image, and storage images.  To access a 
 Formatting a filesystem wipes each avialable least signifigant bit in the images provided, similarly removing a file wipes its imprint and shifts the filesystem if there is a hole.  All files in the filesystem have permissions of 644 and cannot be edited, but can be read, renamed, deleted, and copied.
 
 DEPENDENCIES:
-	- fuse
-	- libpng
-	- libpng-dev
+	- libfuse-dev
+	- pkg-config
+	- libpng12-dev
 
 
 COMPILE:
