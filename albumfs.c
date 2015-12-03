@@ -66,8 +66,10 @@ int main(int argc, char *argv[]) {
     afs->key[strlen(afs->key) - 1] = '\0';
     printf("\e[1;1H\e[2J");
 
+    // Check mount
+    if (parseArgv(argc, argv, MNT_OPTION)) { readRoot(); }
     // Check format
-    if (parseArgv(argc, argv, FORMAT_OPTION)) {
+    else if (parseArgv(argc, argv, FORMAT_OPTION)) {
         afs_format();
         afs_file **files = malloc(sizeof(afs_file*) * afs->file_count);
         afs->files = files;
@@ -76,10 +78,6 @@ int main(int argc, char *argv[]) {
     else if (parseArgv(argc, argv, EXPAND_OPTION)) {
         readRoot();
         afs_expand();
-    }
-    // Check mount
-    else if (parseArgv(argc, argv, MNT_OPTION)) { 
-        readRoot(); 
     }
     else { afs_usage(); }
 
