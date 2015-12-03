@@ -77,10 +77,7 @@ int main(int argc, char *argv[]) {
     // Check format
     else if (parseArgv(argc, argv, FORMAT_OPTION)) { afs_format(); }
     // Check expand
-    else if (parseArgv(argc, argv, EXPAND_OPTION)) {
-        readRoot();
-        afs_expand();
-    }
+    else if (parseArgv(argc, argv, EXPAND_OPTION)) { afs_expand(); }
     else { afs_usage(); }
 
     // Fuse

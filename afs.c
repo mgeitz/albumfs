@@ -375,6 +375,7 @@ void afs_expand() {
     int x, y, exists;
     int added = 0;
 
+    readRoot();
     FD = opendir(afs->img_dir);
     if (!FD) {
         fprintf(stderr, "Cannot open directory %s", afs->img_dir);
