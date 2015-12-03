@@ -7,13 +7,13 @@ albumfs [OPTIONS]... [PATH/TO/ROOTIMAGE.PNG]
 .SH DESCRIPTION
 Create, access, and modify a LSB steganography filesystem in userspace using a directory of PNG images.  Filesystem state is only preserved after safely closing the filesystem via unmount or Ctrl+C.  A filesystem may only use images with the same dimensions as the root image provided.
 .TP
-.BI -format " [drivename]"
+.BI -format
 create a new filesystem using valid images in directory of root image provided and mount it.
 .TP
-.BI -expand " [drivename]"
+.BI -expand
 expand and mount an existing filesystem. The directory containing the root image is scanned for additional valid PNG images not already included in the filesystem. 
 .TP
-.BI -mount " [drivename]"
+.BI -mount
 mount an existing filesystem 
 .TP
 .B -debug
@@ -23,9 +23,9 @@ enable bit by bit debug output. IO blocking from this output will cause the file
 echo command syntax and exit program.
 .SH EXAMPLES
 .PP
-albumfs -format mydrive images/vacation/image.png
+albumfs -format images/vacation/image.png
 .PP
-albumfs -debug -mount mydrive images/vacation/image.png
+albumfs -debug -mount images/vacation/image.png
 .SH SEE ALSO
 fuse(8)
 .SH AUTHOR

@@ -27,13 +27,13 @@ KNOWN BUGS:
 
 
 COMMANDS:
-       -format [drivename]
+       -format
               create a new filesystem using valid images in directory of root image provided and mount it.
 
-       -expand [drivename]
+       -expand
               expand  and mount an existing filesystem. The directory containing the root image is scanned for additional valid PNG images not already included in the filesystem.
 
-       -mount [drivename]
+       -mount
               mount an existing filesystem
 
        -debug

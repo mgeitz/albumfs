@@ -30,20 +30,20 @@ afs_filesystem *afs;
 int main(int argc, char *argv[]) {
     char actualpath [MAX_PATH];
     char* base;
-    int8_t mntpos, formatpos, exppos;
     int8_t fargc = 6;
     const char *fargv[fargc];
 
+    // Check minimum argc and root
     if ((getuid() == 0) || (geteuid() == 0)) {
         fprintf(stderr, "May not run as root, terrible things could happen\n");
         afs_usage();
     }
-    if (argc < 4) { afs_usage(); }
+    if (argc < 3) { afs_usage(); }
 
     // Check help/debug options
     afs_dbg = 0;
-    if(parseArgv(argc, argv, HELP_OPTION)) { afs_usage(); }
     if(parseArgv(argc, argv, DEBUG_OPTION)) { afs_dbg = 1; }
+    if(parseArgv(argc, argv, HELP_OPTION)) { afs_usage(); }
 
     // Get absolute path, img_dir path, and basename
     realpath(argv[argc - 1], actualpath);
@@ -54,55 +54,34 @@ int main(int argc, char *argv[]) {
     strcpy(afs->root_img->filename, base);
 
     // Read root image
-    if (!read_png(afs->root_img, afs->img_dir)) { 
-        fprintf(stderr, "Invalid root image!"); 
-        afs_usage();
-    }
+    if (!read_png(afs->root_img, afs->img_dir)) { afs_usage(); }
 
-    // Format or read root
-    if ((formatpos = parseArgv(argc, argv, FORMAT_OPTION))) {
-        if (argc < formatpos + 1) {
-            fprintf(stderr, "Must supply drive name!\n");
-            afs_usage();
-        }
-        strcpy(afs->name, argv[formatpos + 1]);
-        strcat(afs->name, ".afs");
-        printf("Enter encryption key for %s:\n", afs->name);
-        fgets(afs->key, sizeof(afs->key), stdin);
-        printf("\e[1;1H\e[2J");
+    // Drive name and key
+    printf("Enter drive name:\n");
+    fgets(afs->name, sizeof(afs->name), stdin);
+    afs->name[strlen(afs->name) - 1] = '\0';
+    strcat(afs->name, ".afs");
+    printf("Enter encryption key for %s:\n", afs->name);
+    fgets(afs->key, sizeof(afs->key), stdin);
+    afs->key[strlen(afs->key) - 1] = '\0';
+    printf("\e[1;1H\e[2J");
+
+    // Check format
+    if (parseArgv(argc, argv, FORMAT_OPTION)) {
         afs_format();
         afs_file **files = malloc(sizeof(afs_file*) * afs->file_count);
         afs->files = files;
     }
-    else if ((exppos = parseArgv(argc, argv, EXPAND_OPTION))) {
-        if (argc < exppos + 1) {
-            fprintf(stderr, "Must supply drive name!\n");
-            afs_usage();
-        }
-        strcpy(afs->name, argv[exppos + 1]);
-        strcat(afs->name, ".afs");
-        printf("Enter encryption key for %s:\n", afs->name);
-        fgets(afs->key, sizeof(afs->key), stdin);
-        printf("\e[1;1H\e[2J");
+    // Check expand
+    else if (parseArgv(argc, argv, EXPAND_OPTION)) {
         readRoot();
         afs_expand();
     }
-    else if ((mntpos = parseArgv(argc, argv, MNT_OPTION))) { 
-        if (argc < mntpos + 1) {
-            fprintf(stderr, "Must supply drive name!\n");
-            afs_usage();
-        }
-        strcpy(afs->name, argv[mntpos + 1]);
-        strcat(afs->name, ".afs");
-        printf("Enter encryption key for %s:\n", afs->name);
-        fgets(afs->key, sizeof(afs->key), stdin);
-        printf("\e[1;1H\e[2J");
+    // Check mount
+    else if (parseArgv(argc, argv, MNT_OPTION)) { 
         readRoot(); 
     }
-    else {
-        fprintf(stderr, "Must either mount, expand or format a filesystem\n"); 
-        afs_usage();
-    }
+    else { afs_usage(); }
 
     fargv[0] = argv[0];
     fargv[1] = "-f";
