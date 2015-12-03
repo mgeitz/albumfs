@@ -9,7 +9,7 @@ key encrypted LSB steganography PNG album filesystem in userspace
 
 Create, access, and modify a key encrypted LSB steganography filesystem in userspace using a directory of PNG images.  Filesystem state is only preserved after safely closing the filesystem via unmount or Ctrl+C.  A filesystem may only use images with the same dimensions as the root image provided.
 
-A filesystem requires a name, key, root image, and storage images.  To access a filesystem the correct key, filesystem name, and root image must be given.  All data is XOR'd with the sha256 hash of the key as it is read and written from the images.  The root image stores the filesystem name, consumed and total space, image and file count, image hashs, and file meta data.  All images added to the filesystem while formatting or expanding are found in the same directory as the root image.
+A filesystem requires a name, key, root image, and storage images.  To access a filesystem the correct key, filesystem name, and root image must be given.  All data is XOR'd with the sha512 hash of the key as it is read and written from the images.  The root image stores the filesystem name, consumed and total space, image and file count, image hashs, and file meta data.  All images added to the filesystem while formatting or expanding are found in the same directory as the root image.
 
 Formatting a filesystem wipes each avialable least signifigant bit in the images provided, similarly removing a file wipes its data and shifts the filesystem if there is a hole.  All files in the filesystem have permissions of 644 and cannot be edited, but can be read, renamed, deleted, and copied.
 
