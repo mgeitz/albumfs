@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     char* base;
     int8_t fargc = 6;
     const char *fargv[fargc];
-    char key_input[512];
+    char key_input[4096];
 
     // Check minimum argc and root
     if ((getuid() == 0) || (geteuid() == 0)) {
@@ -62,14 +62,16 @@ int main(int argc, char *argv[]) {
     fgets(afs->name, sizeof(afs->name), stdin);
     afs->name[strlen(afs->name) - 1] = '\0';
     strcat(afs->name, ".afs");
+
     // Key
     printf("Enter encryption key for %s:\n", afs->name);
     fgets(key_input, sizeof(key_input), stdin);
-    SHA256_CTX sha256;
-    SHA256_Init(&sha256);
-    SHA256_Update(&sha256, key_input, strlen(key_input));
-    SHA256_Final((unsigned char *)afs->key, &sha256);
+    SHA512_CTX sha512;
+    SHA512_Init(&sha512);
+    SHA512_Update(&sha512, key_input, strlen(key_input));
+    SHA512_Final((unsigned char *)afs->key, &sha512);
     printf("\e[1;1H\e[2J");
+
     // Check mount
     if (parseArgv(argc, argv, MNT_OPTION)) { readRoot(); }
     // Check format
@@ -81,18 +83,16 @@ int main(int argc, char *argv[]) {
     }
     else { afs_usage(); }
 
+    // Fuse
     fargv[0] = argv[0];
     fargv[1] = "-f";
     fargv[2] = "-o";
     fargv[3] = "big_writes";
     fargv[4] = "-s";
     fargv[5] = afs->name;
-
     mkdir(afs->name, 0755);
     printf("\n%s mounted.\nAlbumFS will continue to run in the foreground.\nUse Ctrl+C to safely unmount the filesystem.\n", afs->name);
     return fuse_main(fargc, (char **)fargv, &afs_oper, NULL);
-    saveState();
-    exit(0);
 }
 
 

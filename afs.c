@@ -490,7 +490,6 @@ void afs_format() {
     printf("PNG Count  : %d\n", afs->img_count);
     printf("Capacity   : %.2f MB\n", ((afs->capacity / 1000) / 1000));
     printf("Consumed   : %.2f MB\n", ((afs->consumed / 1000) / 1000));
-    printf("Key        : %s\n", afs->key);
     for (y = 0; y < afs->img_count; y++) {
         if (afs_dbg) { printf("%d: %s\n", y, afs->images[y]->filename); } 
     }
