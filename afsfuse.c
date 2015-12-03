@@ -124,6 +124,12 @@ static int afs_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_
 }
 
 
+/* utimens */
+static int afs_utimens(const char *path, const struct timespec ts[2]) {
+    return 0;
+}
+
+
 /* Destroy */
 static void afs_destroy(void *v) { saveState(); }
 
@@ -137,5 +143,6 @@ static struct fuse_operations afs_oper = {
     .create   = afs_create,
     .rename   = afs_rename,
     .unlink   = afs_unlink,
+    .utimens  = afs_utimens,
     .destroy  = afs_destroy,
 };
