@@ -7,7 +7,7 @@ MAN=albumfs.1
 
 CFLAGS=-Wall -D_FILE_OFFSET_BITS=8
 PKG=`pkg-config fuse --cflags --libs`
-LIBS=-lpng -lm
+LIBS=-lpng -lm -lssl -lcrypto
 
 all: objects $(NAME)
 	rm ${OBJECTS}

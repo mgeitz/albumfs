@@ -20,12 +20,11 @@
 #include <fcntl.h>
 #include <math.h>
 #include <sys/types.h>
-
+#include <openssl/md5.h>
 
 /* Preprocessor Macros */
 
 #define _GNU_SOURCE
-#define VERSION "0.1.2"
 #define MAX_FILENAME 64
 #define MAX_PATH 512
 #define MINIMUM_PNG 2
@@ -45,6 +44,7 @@ int8_t afs_dbg;
 //albumfs.c
 void afs_usage();
 int parseArgv(int argc, char *argv[], char *option);
+int getMD5(char *filename, char *mds_sum);
 //afs.c
 int wipeFile(char *path);
 int findFile(char *path);

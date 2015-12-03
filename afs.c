@@ -518,8 +518,9 @@ void writeRoot() {
     
     // Write png_data for each valid image
     for (y = 0; y < afs->img_count; y++) {
-        writeBytes((void *) afs->images[y]->filename, MAX_FILENAME, offset);
-        offset = offset - MAX_FILENAME;
+        getMD5(afs->images[y]->filename, afs->images[y]->md5);
+        writeBytes((void *) afs->images[y]->md5, sizeof(afs->images[y]->md5), offset);
+        offset = offset -sizeof(afs->images[y]->md5);
     }
 
     // Write file_meta for each file
@@ -533,6 +534,8 @@ void writeRoot() {
 
 /* Read filesystem_meta and png_data from root img */
 void readRoot() {
+    DIR *FD;
+    struct dirent *dir;
     int y;
     int offset = -1;
     char name[64];
@@ -555,18 +558,35 @@ void readRoot() {
     printf("Found filesystem %s [%0.2f/%0.2f] %d files in %d images\n", name, afs->consumed, afs->capacity, afs->file_count, afs->img_count);
 
     png_data **dir_images = malloc((sizeof(png_data*) * afs->img_count));
+    FD = opendir(afs->img_dir);
+    if (!FD) {
+        fprintf(stderr, "Cannot open directory %s", afs->img_dir);
+        free(afs);
+        exit(1);
+    }
 
     // Read png_data for each valid image
     for (y = 0; y < afs->img_count; y++) {
         png_data *new_img = malloc(sizeof(png_data));
-        readBytes((void *) new_img->filename, MAX_FILENAME, offset);
-        offset = offset - MAX_FILENAME;
-        dir_images[y] = new_img;
-        if (!read_png(new_img, afs->img_dir)) {
-            fprintf(stderr, "Filesystem is missing image %s!", new_img->filename);
-            exit(1);
+        char tmp[strlen(new_img->md5)];
+        readBytes((void *) new_img->md5, sizeof(new_img->md5), offset);
+        offset = offset - sizeof(new_img->md5);
+        while ((dir = readdir(FD)) != NULL) {
+            memset(tmp, 0, sizeof(new_img->md5));
+            getMD5(dir->d_name, tmp);;
+            if (strncmp(tmp, new_img->md5, sizeof(new_img->md5)) == 0) {
+                strcpy(new_img->filename, dir->d_name);
+                if (!read_png(new_img, afs->img_dir)) {
+                    fprintf(stderr, "Filesystem is missing image %s!", new_img->filename);
+                    exit(1);
+                }
+                dir_images[y] = new_img;
+                break;
+            }
         }
+        seekdir(FD, 0);
     }
+    closedir(FD);
     afs->images = dir_images;
 
     afs_file **files = malloc((sizeof(afs_file*) * afs->file_count));

@@ -16,6 +16,7 @@ typedef enum {modified, not_modified} image_state;
 
 struct PNG_image_data {
     char filename [MAX_FILENAME];
+    char md5[64];
     int32_t width, height, channels;
     unsigned char png_sig[8];
     png_byte color_type;

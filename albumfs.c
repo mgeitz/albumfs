@@ -63,7 +63,11 @@ int main(int argc, char *argv[]) {
     strcat(afs->name, ".afs");
     printf("Enter encryption key for %s:\n", afs->name);
     fgets(afs->key, sizeof(afs->key), stdin);
-    afs->key[strlen(afs->key) - 1] = '\0';
+    //afs->key[strlen(afs->key) - 1] = '\0';
+    MD5_CTX mdContext;
+    MD5_Init (&mdContext);
+    MD5_Update (&mdContext, afs->key, sizeof(afs->key));
+    MD5_Final ((unsigned char *)afs->key, &mdContext);
     printf("\e[1;1H\e[2J");
 
     // Check mount
@@ -107,4 +111,24 @@ int parseArgv(int argc, char *argv[], char *option) {
         if(strncmp(argv[y], option, length) == 0) { return y; }
     }
     return 0;
+}
+
+
+/* Calculate MD5 of a file */
+int getMD5(char *filename, char *md5_sum) {
+    char path[MAX_PATH];
+    strcpy(path, afs->img_dir);
+    strcat(path, filename);
+    FILE *f = fopen(path, "rb");
+    char data[sizeof(md5_sum)];
+
+    if (f == NULL) { return 0; }
+    MD5_CTX mdContext;
+    MD5_Init (&mdContext);
+	while (fread (data, 1, sizeof(md5_sum), f) != 0) {
+            MD5_Update (&mdContext, data, sizeof(md5_sum));
+        }
+    MD5_Final ((unsigned char *)md5_sum, &mdContext);
+    pclose(f);
+    return 1;
 }
