@@ -36,9 +36,11 @@ COMMANDS:
        -mount [drivename]
               mount an existing filesystem
 
-       -debug enable bit by bit debug output. IO blocking from this output will cause the filesystem to operate very slowly.
+       -debug
+	      enable bit by bit debug output. IO blocking from this output will cause the filesystem to operate very slowly.
 
-       -help  echo command syntax and exit program.
+       -help  
+	      echo command syntax and exit program.
 
 
 EXAMPLES:
