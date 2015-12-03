@@ -527,6 +527,7 @@ void writeRoot() {
         writeBytes((void *) afs->files[y], sizeof(afs_file), offset);
         offset = offset - sizeof(afs_file);
     }
+    write_png(afs->root_img, afs->img_dir);
 }
 
 
@@ -598,7 +599,7 @@ void clearAllLSB(png_data *img) {
 }
 
 
-/* Write state to images and exit */
+/* Write state to modified images and exit */
 void saveState() {
     int i;
     for (i = 0; i < afs->img_count; i++) {
@@ -608,7 +609,6 @@ void saveState() {
         }
     }
     writeRoot();
-    write_png(afs->root_img, afs->img_dir);
     rmdir(afs->name);
     printf("\nSafely unmounted %s, goodbye!\n", afs->name);
 }
