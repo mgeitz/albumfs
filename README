@@ -11,6 +11,7 @@ Create, access, and modify a key encrypted LSB steganography filesystem in users
 A filesystem requires a name, key, root image, and storage images.  To access a filesystem the correct key, filesystem name, and root image must be given.  All data is XOR'd with the key as it is read and written from the images.  The root image stores the filesystem name, consumed and total space, image and file count, image filenames, and file meta data.  All images added to the filesystem while formatting or expanding are found in the same directory as the root image.
 Formatting a filesystem wipes each avialable least signifigant bit in the images provided, similarly removing a file wipes its imprint and shifts the filesystem if there is a hole.  All files in the filesystem have permissions of 644 and cannot be edited, but can be read, renamed, deleted, and copied.
 
+
 DEPENDENCIES:
 	- libfuse-dev
 	- pkg-config
@@ -25,6 +26,7 @@ COMPILE:
 
 KNOWN BUGS:
 	- Filesystem cannot survive image renames
+	- Filesystem does not support  directories
 
 
 COMMANDS:
