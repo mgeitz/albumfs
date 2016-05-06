@@ -1,6 +1,6 @@
 # AlbumFS
 
-## A key encrypted LSB steganography PNG album filesystem in user space
+## A key encrypted LSB steganography PNG album filesystem in user space for Linux
 
 Create, access, and modify a key encrypted LSB steganography filesystem in user space using a directory of PNG images.  Filesystem state is only preserved after safely closing the filesystem via unmount or Ctrl+C.  A filesystem may only use images with the same dimensions as the root image provided.
 
