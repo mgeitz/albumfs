@@ -79,7 +79,6 @@ char readByte(int64_t offset) {
 /* Read n bytes of data from n*8 bytes in afs */
 int readBytes(char *buf, size_t size, off_t offset) {
     int i;
-    int ret = 0;
 
     if ((((offset + size) > afs->capacity) && (offset > 0)) || ((offset < 0) && ((abs(offset) + size) > ceil((afs->root_img->height * afs->root_img->width * 3) / 8)))) {
         fprintf(stderr, "Failed to read, filesystem %s out of bounds", afs->name);
@@ -87,11 +86,10 @@ int readBytes(char *buf, size_t size, off_t offset) {
     }
     for (i = 0; i < size; i++) {
         buf[i] = readByte(offset * 8);
-        ret++;
         if (offset >= 0) { offset++; }
         else { offset--; }
     }
-    return ret;
+    return i;
 }
 
 
@@ -161,7 +159,6 @@ void writeByte(char *b, int64_t offset) {
 /* Write n bytes of data to n*8 bytes in afs */
 int writeBytes(char *buf, size_t size, off_t offset) {
     int i;
-    int result = 0;
 
     if ((((offset + size) > afs->capacity) && (offset > 0)) || ((offset < 0) && ((abs(offset) + size) > ceil((afs->root_img->height * afs->root_img->width * 3) / 8)))) {
         fprintf(stderr, "Failed to write, attempting to write beyond memory!\no: %d s: %d\n", (int)offset, (int)size);
@@ -169,14 +166,13 @@ int writeBytes(char *buf, size_t size, off_t offset) {
     }
     for (i = 0; i < size; i++) {
         writeByte(&buf[i], (offset * 8));
-        result++;
         if ((int)offset >= 0) { 
             offset = offset + 1;; 
             afs->consumed++;;
         }
         else { offset = offset - 1; }
     }
-    return result;
+    return i;
 }
 
 
@@ -238,15 +234,13 @@ void wipeByte(int64_t offset) {
 int wipeBytes(afs_file *file) {
     int i;
     off_t offset = file->offset;
-    int result = 0;
 
     for (i = 0; i < file->size + 1; i++) {
         wipeByte(offset * 8);
         afs->consumed--;
-        result++;
         offset++;
     }
-    return result;
+    return i;
 }
 
 
