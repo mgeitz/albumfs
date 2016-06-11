@@ -37,10 +37,9 @@ char readByte(int64_t offset) {
     } else { root = 0; }
 
     pixel = offset % 3;
-    x_offset = floor(offset / 3);
-    x_offset = x_offset % afs->root_img->width;
-    row_num = floor((offset / 3) / afs->root_img->width);
-    img_num = floor(row_num / afs->root_img->height);
+    x_offset = ((int) offset / 3) % afs->root_img->width;
+    row_num = (offset / 3) / afs->root_img->width;
+    img_num = row_num / afs->root_img->height;
     img_row_num = row_num % afs->root_img->height;
 
     if (afs_dbg) { printf("# Read Byte\n"); }
@@ -119,10 +118,9 @@ void writeByte(char *b, int64_t offset) {
     byte ^= afs->key[offset % strlen(afs->key)];
 
     pixel = offset % 3;
-    x_offset = floor(offset / 3);
-    x_offset = x_offset % afs->root_img->width;
-    row_num = floor((offset / 3) / afs->root_img->width);
-    img_num = floor(row_num / afs->root_img->height);
+    x_offset = ((int) offset / 3) % afs->root_img->width;
+    row_num = (offset / 3) / afs->root_img->width;
+    img_num = row_num / afs->root_img->height;
     img_row_num = row_num % afs->root_img->height;
 
     if (afs->images[img_num]->state != modified) { afs->images[img_num]->state = modified; }
@@ -201,10 +199,9 @@ void wipeByte(int64_t offset) {
     } else { root = 0; }
 
     pixel = offset % 3;
-    x_offset = floor(offset / 3);
-    x_offset = x_offset % afs->root_img->width;
-    row_num = floor((offset / 3) / afs->root_img->width);
-    img_num = floor(row_num / afs->root_img->height);
+    x_offset = ((int) offset / 3) % afs->root_img->width;
+    row_num = (offset / 3) / afs->root_img->width;
+    img_num = row_num / afs->root_img->height;
     img_row_num = row_num % afs->root_img->height;
 
     if (afs->images[img_num]->state != modified) { afs->images[img_num]->state = modified; }
