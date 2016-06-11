@@ -11,7 +11,7 @@ Formatting a filesystem wipes each available least significant bit in the images
 
 ### Dependencies
 * libfuse-dev
-* libpng12-dev
+* libpng-dev
 * libssl-dev
 * pkg-config
 
@@ -45,10 +45,4 @@ $ man albumfs
 
 
 ### Known Issues
-* Filesystem does not support  directories
-
-
-### Eventually
-* Use different way to write to root image so offset can be unsigned
-* Support directories
-* Add option for live updating
+* Filesystem does not support directories
