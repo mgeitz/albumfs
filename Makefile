@@ -14,9 +14,9 @@ all: objects $(NAME)
 
 install:
 	cp $(NAME) /usr/bin
-	gzip $(MAN)
-	cp $(MAN).gz /usr/share/man/man1
-	rm -f $(MAN).gz
+	gzip < $(MAN) > $(MAN).gz
+	mkdir -p /usr/local/share/man/man1
+	mv $(MAN).gz /usr/local/share/man/man1/$(MAN).gz
 
 $(NAME): $(OBJECTS)
 	$(CC) $(OBJECTS) $(PROGRAM) $(CFLAGS) $(PKG) $(LIBS) -o $(NAME)
