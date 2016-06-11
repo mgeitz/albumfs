@@ -45,10 +45,10 @@ char readByte(int64_t offset) {
     if (afs_dbg) { printf("# Read Byte\n"); }
     for (x = 8; x > 0; x--) {
         if (!root) { bit = readBit(afs->images[img_num]->row_pointers[img_row_num], x_offset, pixel); }
-        else if (root) { bit = readBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel); }
+        else { bit = readBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel); }
         if (afs_dbg) { 
             if (!root) { printf("%d | %d(%d, %d):%d\n", bit, img_num, x_offset, img_row_num, pixel); }
-            else if (root) { printf("%d | -1(%d, %d):%d\n", bit, x_offset, img_row_num, pixel); }
+            else { printf("%d | -1(%d, %d):%d\n", bit, x_offset, img_row_num, pixel); }
         }
         if (bit) { byte |= 1; }
         else { byte &= ~1; }
@@ -130,10 +130,10 @@ void writeByte(char *b, int64_t offset) {
     for (x = 8; x > 0; x--) {
         if (afs_dbg) { 
             if (!root) { printf("%d | %d(%d, %d(%d)):%d\n", bit[x - 1], img_num, x_offset, img_row_num, row_num, pixel); }
-            else if (root) { printf("%d | -1(%d, %d(%d)):%d\n", bit[x - 1], x_offset, img_row_num, row_num, pixel); }
+            else { printf("%d | -1(%d, %d(%d)):%d\n", bit[x - 1], x_offset, img_row_num, row_num, pixel); }
         }
         if (!root) { writeBit(afs->images[img_num]->row_pointers[img_row_num], x_offset, pixel, bit[x - 1]); }
-        else if (root) { writeBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel, bit[x - 1]); }
+        else { writeBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel, bit[x - 1]); }
         if (x_offset == (afs->root_img->width - 1) && pixel == 2) {
             if ((img_row_num == (afs->root_img->height - 1)) && !root) {
                 img_num++;
@@ -205,10 +205,10 @@ void wipeByte(int64_t offset) {
     for (x = 8; x > 0; x--) {
         if (afs_dbg) {
             if (!root) { printf("0 | %d(%d, %d(%d)):%d\n", img_num, x_offset, img_row_num, row_num, pixel); }
-            else if (root) { printf("0 | -1(%d, %d(%d)):%d\n", x_offset, img_row_num, row_num, pixel); }
+            else { printf("0 | -1(%d, %d(%d)):%d\n", x_offset, img_row_num, row_num, pixel); }
         }
         if (!root) { wipeBit(afs->images[img_num]->row_pointers[img_row_num], x_offset, pixel); }
-        else if (root) { wipeBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel); }
+        else { wipeBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel); }
         if (x_offset == (afs->root_img->width - 1) && pixel == 2) {
             if ((img_row_num == (afs->root_img->height - 1)) && !root) {
                 img_num++;
