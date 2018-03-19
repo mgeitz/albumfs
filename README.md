@@ -8,6 +8,7 @@ A filesystem requires a name, key, root image, and storage images.  To access a 
 
 Formatting a filesystem wipes each available least significant bit in the images provided, similarly removing a file wipes its data and shifts the filesystem if there is a hole.  All files in the filesystem have permissions of 644 and cannot be edited, but can be read, renamed, deleted, and copied.
 
+The [wiki](https://github.com/mgeitz/albumfs/wiki) contains an implementation summary and some additional details.
 
 ### Dependencies
 * libfuse-dev
@@ -42,7 +43,3 @@ $ albumfs -debug -mount images/vacation/image.png
 ```sh
 $ man albumfs
 ```
-
-
-### Known Issues
-* Filesystem does not support directories
