@@ -1,0 +1,7 @@
+version: '3'
+services:
+  albumfs: &base
+    build: .
+    command: /bin/bash
+    volumes:
+      - .:/bin/albumfs
