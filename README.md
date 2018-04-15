@@ -61,4 +61,4 @@ $ man albumfs
 ```
 
 ### Contributing
-View our section on [how to contribute](./CONTRIBUTING.md)
+View the section on [how to contribute](./CONTRIBUTING.md)

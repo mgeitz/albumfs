@@ -1,5 +1,4 @@
 # Contributing to AlbumFS
----
 
 :+1: :tada: First off, thanks for taking the time to contribute! :tada: :+1:
 
@@ -8,12 +7,12 @@
 #### Reporting Bugs
 Explain the problem and include additional details to help maintainers reproduce the problem:
 * **Use** a clear and descriptive title
-* **Describe** exact steps to reproduce the problem For example
+* **Describe** exact steps to reproduce the problem
 * **Provide** specific examples to demonstrate the steps
 * **Explain** which behavior you expected to see
 
 #### Suggested Enhancements
-Enhancement suggestions are tracked as [GitHub issues]https://guides.github.com/features/issues/()
+Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com/features/issues/)
 * **Use** a clear and descriptive title
 * **Provide** a step-by-step description of the suggested enhancement with examples
 * **Explain** why this enhancement would be useful
