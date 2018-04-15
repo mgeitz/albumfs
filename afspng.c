@@ -1,8 +1,8 @@
-/* 
+/*
 //   Program:             AlbumFS
 //   File Name:           afspng.c
 //
-//   Copyright (C) 2015 Michael Geitz
+//   Copyright (C) 2015-2018 Michael Geitz
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by

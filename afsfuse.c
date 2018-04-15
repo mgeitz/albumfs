@@ -1,8 +1,8 @@
-/* 
+/*
 //   Program:             AlbumFS
 //   File Name:           afsfuse.c
 //
-//   Copyright (C) 2015 Michael Geitz
+//   Copyright (C) 2015-2018 Michael Geitz
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ static int afs_getattr(const char *path, struct stat *stbuf) {
                 return 0;
             }
         }
-    } 
+    }
     return -ENOENT;
 }
 
@@ -98,7 +98,7 @@ static int afs_rename(const char *src, const char *dest) {
     fsrc = findFile((char *) src);
     if (fsrc == -1) { return -ENOENT; }
     fdest = findFile((char *) dest);
-    if (fdest != -1) { 
+    if (fdest != -1) {
         fprintf(stderr, "Cannot rename file to existing filename\n");
         return -ENOENT;
     }

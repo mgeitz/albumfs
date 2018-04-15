@@ -1,8 +1,8 @@
-/* 
+/*
 //   Program:             AlbumFS
 //   File Name:           afs.c
 //
-//   Copyright (C) 2015 Michael Geitz
+//   Copyright (C) 2015-2018 Michael Geitz
 //
 //   This program is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
@@ -31,8 +31,8 @@ char readByte(int64_t offset) {
     unsigned char byte;
     int8_t x, bit, pixel, root;
     int32_t img_row_num, img_num, row_num, x_offset;
-    if (offset < 0) { 
-        root = 1; 
+    if (offset < 0) {
+        root = 1;
         offset = abs(offset);
     } else { root = 0; }
 
@@ -46,7 +46,7 @@ char readByte(int64_t offset) {
     for (x = 8; x > 0; x--) {
         if (!root) { bit = readBit(afs->images[img_num]->row_pointers[img_row_num], x_offset, pixel); }
         else { bit = readBit(afs->root_img->row_pointers[img_row_num], x_offset, pixel); }
-        if (afs_dbg) { 
+        if (afs_dbg) {
             if (!root) { printf("%d | %d(%d, %d):%d\n", bit, img_num, x_offset, img_row_num, pixel); }
             else { printf("%d | -1(%d, %d):%d\n", bit, x_offset, img_row_num, pixel); }
         }
@@ -65,9 +65,9 @@ char readByte(int64_t offset) {
                 break;
             }
         }
-        if (pixel == 2) { 
+        if (pixel == 2) {
             pixel = 0;
-            x_offset++; 
+            x_offset++;
         }
         else { pixel++; }
     }
@@ -109,7 +109,7 @@ void writeByte(char *b, int64_t offset) {
     char byte;
 
     if (offset < 0) {
-        root = 1; 
+        root = 1;
         offset = abs(offset);
     } else { root = 0; }
     strncpy(&byte, b, sizeof(char));
@@ -128,7 +128,7 @@ void writeByte(char *b, int64_t offset) {
     }
     if (afs_dbg) { printf("# Write byte\n"); }
     for (x = 8; x > 0; x--) {
-        if (afs_dbg) { 
+        if (afs_dbg) {
             if (!root) { printf("%d | %d(%d, %d(%d)):%d\n", bit[x - 1], img_num, x_offset, img_row_num, row_num, pixel); }
             else { printf("%d | -1(%d, %d(%d)):%d\n", bit[x - 1], x_offset, img_row_num, row_num, pixel); }
         }
@@ -146,9 +146,9 @@ void writeByte(char *b, int64_t offset) {
                 return;
             }
         }
-        if (pixel == 2) { 
+        if (pixel == 2) {
             pixel = 0;
-            x_offset++; 
+            x_offset++;
         }
         else { pixel++; }
     }
@@ -166,8 +166,8 @@ int writeBytes(char *buf, size_t size, off_t offset) {
     }
     for (i = 0; i < size; i++) {
         writeByte(&buf[i], (offset * 8));
-        if ((int)offset >= 0) { 
-            offset = offset + 1;; 
+        if ((int)offset >= 0) {
+            offset = offset + 1;;
             afs->consumed++;;
         }
         else { offset = offset - 1; }
@@ -320,7 +320,7 @@ int wipeFile(char *path) {
     afs_file *deleted_file = afs->files[f];
 
     result += wipeBytes(deleted_file);
-    if (f != (afs->file_count - 1)) { 
+    if (f != (afs->file_count - 1)) {
         afs_file **new_files = malloc(sizeof(afs_file) * afs->file_count - 1);
         for (x = 0; x < f; x++) { new_files[x] = afs->files[x]; }
         for (x = 0; x < afs->file_count - f - 1; x++) {
@@ -483,7 +483,7 @@ void afs_format() {
     printf("Capacity   : %.2f MB\n", ((afs->capacity / 1000) / 1000));
     printf("Consumed   : %.2f MB\n", ((afs->consumed / 1000) / 1000));
     for (y = 0; y < afs->img_count; y++) {
-        if (afs_dbg) { printf("%d: %s\n", y, afs->images[y]->filename); } 
+        if (afs_dbg) { printf("%d: %s\n", y, afs->images[y]->filename); }
     }
 }
 
@@ -505,8 +505,8 @@ void writeRoot() {
     offset = offset - sizeof(int32_t);
     writeBytes((void *) &afs->file_count, sizeof(int32_t), offset);
     offset = offset - sizeof(int32_t);
-    
-    
+
+
     // Write png_data for each valid image
     for (y = 0; y < afs->img_count; y++) {
         getMD5(afs->images[y]->filename, afs->images[y]->md5);
