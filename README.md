@@ -61,10 +61,4 @@ $ man albumfs
 ```
 
 ### Contributing
-
-* **Fork** the repo
-* **Clone** the repo locally
-* **Checkout** the `develop` branch
-* **Commit** your change [accordingly](https://github.com/torvalds/subsurface-for-dirk/blob/master/README#L92)
-* **Push** your change to your remote fork
-* Submit a **Pull request** against the develop branch
+View our section on [how to contribute](./CONTRIBUTING.md)
