@@ -1,7 +1,7 @@
 FROM debian:stretch
 
 LABEL maintainer="mgeitz" \
-      version="0.1.5" \
+      version="0.1.7" \
       description="This image is used to start the albumfs executable"
 
 RUN groupadd -g 999 albumfs && \
