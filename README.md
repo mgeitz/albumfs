@@ -11,15 +11,31 @@ Formatting a filesystem wipes each available least significant bit in the images
 The [wiki](https://github.com/mgeitz/albumfs/wiki) contains an implementation summary and some additional details.
 
 ### Dependencies
-* libfuse-dev
-* libpng-dev
-* libssl-dev
-* pkg-config
 
+#### Debian
+```sh
+$ apt-get install build-essential pkg-config libfuse-dev libpng-dev libssl-dev
+```
 
-### Compile
-* make all
-* sudo make install
+#### CentOS
+```sh
+$ yum group install "Development Tools"
+$ yum install fuse fuse-devel libpng libpng-devel openssl openssl-devel
+```
+
+### Getting Started
+
+#### Compile
+```sh
+$ make all
+$ sudo make install
+```
+
+#### Docker
+```sh
+$ docker-compose build albumfs
+$ docker-compose run --rm albumfs
+```
 
 
 ### Commands
@@ -32,8 +48,8 @@ The [wiki](https://github.com/mgeitz/albumfs/wiki) contains an implementation su
 | -debug	| enable bit by bit debug output. IO blocking from this output will cause the filesystem to operate very slowly.|
 | -help		| echo command syntax and exit program.|
 
+#### Examples
 
-### Examples
 ```sh
 $ albumfs -format images/vacation/image.png
 ```
